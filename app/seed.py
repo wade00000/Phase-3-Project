@@ -7,8 +7,8 @@ from datetime import datetime, timedelta
 import random
 
 
-from app.models import Customer, Product, PaymentMethod, Invoice, InvoiceLine, Payment
-from app.database import Session
+from models import Customer, Product, PaymentMethod, Invoice, InvoiceLine, Payment
+from database import Session
 
 session = Session()  
 fake = Faker()

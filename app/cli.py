@@ -1,15 +1,20 @@
 from datetime import date, datetime
 from decimal import Decimal, InvalidOperation
-from models import Customer, Product, Invoice, InvoiceLine, Payment, PaymentMethod
-from database import session
+from app.models import Customer, Product, Invoice, InvoiceLine, Payment, PaymentMethod
+from app.database import Session
 import click
+import shlex
+from click import Context
+
+session = Session()
 
 
 
 @click.group()
 def cli():
     pass
-    
+
+
 def input_nonempty(prompt):
     while True:
         value = input(prompt).strip()
@@ -268,21 +273,37 @@ def record_payment(invoice_id, payment_method_id, amount, pay_date):
     session.commit()
     click.echo(f"Payment of ${amount} recorded for Invoice {invoice.number}. Remaining balance: ${invoice.balance_due}.")
 
+@cli.command()
+def shell():
+    """Interactive CLI shell"""
+    while True:
+        try:
+            cmd = input("billing > ").strip()
+            if cmd.lower() in ("exit", "quit"):
+                click.echo("Exiting shell.")
+                break
+            if not cmd:
+                continue
+
+            # Properly split quoted strings like --name "John Smith"
+            args = shlex.split(cmd)
+
+            # Runs the command like a real CLI — this enables prompting
+            cli.main(args=args, standalone_mode=False)
+            
+
+        # Print output or errors
+        except KeyboardInterrupt:
+            click.echo("\nExiting shell.")
+            break
+        except Exception as e:
+            click.secho(f"Error: {e}", fg="red")
+
+
 if __name__ == "__main__":
-
-    print("TEST")
-    """A simple billing system"""
-    click.secho(r"""
-    ███╗   ███╗ ██████╗ ██╗   ██╗███╗   ██╗██╗   ██╗
-    ████╗ ████║██╔═══██╗██║   ██║████╗  ██║██║   ██║
-    ██╔████╔██║██║   ██║██║   ██║██╔██╗ ██║██║   ██║
-    ██║╚██╔╝██║██║   ██║██║   ██║██║╚██╗██║╚██╗ ██╔╝
-    ██║ ╚═╝ ██║╚██████╔╝╚██████╔╝██║ ╚████║ ╚████╔╝ 
-    ╚═╝     ╚═╝ ╚═════╝  ╚═════╝ ╚═╝  ╚═══╝  ╚═══╝  
-                Track it. Bill it. Bank it.
-
-""", fg='red', bold=True)
-    click.secho("\nWelcome to SimpleBilling CLI!", fg='green', bold=True)
-    click.echo("Type '--help' to see available commands\n",)
-
     cli()
+
+
+
+
+

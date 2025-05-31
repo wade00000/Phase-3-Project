@@ -1,6 +1,9 @@
 from sqlalchemy import Column, Integer, String, Date, ForeignKey, Numeric
 from sqlalchemy.orm import relationship
-from app.database import Base  
+from .database import Base  
+from .database import Session  
+
+session = Session()  
 
 
 class BaseModel(Base):
