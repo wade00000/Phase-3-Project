@@ -133,8 +133,4 @@ You’ll see a welcome banner and can immediately begin using the app.
 
 ## 👤 Author
 
-**Wade**  
-
-
-Full Stack Software Engineer in the making  
-Crafting tools that save time so you can make money 💸
+**Wade Namada**  
