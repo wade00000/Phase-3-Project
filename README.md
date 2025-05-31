@@ -16,79 +16,47 @@ This is the **main entry point** of the application. When you run this script, y
 
 ---
 
-## 🧠 CLI Command Shell: `app/cli.py`
-
-This file defines the **core CLI logic** using Python’s `cmd.Cmd` class.
-
-The `SimpleBillingShell` class is a custom command-line shell that handles user input and command execution. It supports the following commands:
-
-### CLI Commands
-
-| Command       | Description                                                                 |
-|---------------|-----------------------------------------------------------------------------|
-| `add_client`  | Create a new client with name, email, and rate.                            |
-| `log_hours`   | Log billable hours for an existing client.                                 |
-| `show_clients`| List all clients and their hourly rates.                                   |
-| `generate_invoice` | View an invoice for a given client with total hours and amount.       |
-| `exit` / `quit` | Cleanly exits the CLI shell.                                              |
-
-The shell uses:
-- `input()` prompts for interactive data collection
-- SQLAlchemy sessions for ORM operations
-- Helper functions to modularize logic and ensure clean code separation
-
----
-
-## 🔧 Functions: `app/functions.py`
-
-This file holds **helper functions** that encapsulate specific business logic used by the CLI.
-
-### Notable Functions
-
-- `create_client(name, email, rate)`  
-  Creates and persists a new client object. Returns the created client or `None` if validation fails.
-
-- `log_work(client_id, hours)`  
-  Adds a work log entry for a specific client. Includes input validation for negative or zero hours.
-
-- `get_all_clients()`  
-  Retrieves a list of all clients in the database.
-
-- `generate_invoice_for_client(client_id)`  
-  Calculates total billable hours and returns a string-formatted invoice breakdown.
-
-These functions ensure the CLI remains lean, while logic is modular and testable.
-
----
 
 ## 🧬 Models: `app/models.py`
 
-The project uses SQLAlchemy ORM to define relational data models. The three main models are:
+The project uses SQLAlchemy ORM to define relational data models. Two examples of the models are:
 
-- **Client**  
+- **Customers**  
   Attributes: `id`, `name`, `email`, `rate`  
-  Has a one-to-many relationship with `WorkLog`.
+  Has a one-to-many relationship with `Invoices`.
 
-- **WorkLog**  
-  Attributes: `id`, `client_id`, `hours_logged`, `timestamp`  
-  Belongs to a single client.
+- **Invoices**  
+  Attributes: `id`,`invoice_id`, `client_id`, `invice_total`, `payment_total`  
+  Belongs to a single customer.
 
-These models support foreign key constraints, backref relationships, and can be extended later for invoice history or project tracking.
 
 ---
 
 ## 📁 Project Structure
 
 ```
-simplebilling/
-├── app/
-│   ├── cli.py           # CLI logic and command handler
-│   ├── functions.py     # Helper functions for CRUD and invoice generation
-│   ├── models.py        # SQLAlchemy models
-│   └── __init__.py
-├── run_cli.py           # Entry point script with welcome banner
-├── db/                  # SQLite DB and migrations (Alembic, not documented here)
-├── README.md            # You're reading it.
+.
+├── Pipfile
+├── Pipfile.lock
+├── README.md
+├── alembic
+│   ├── README
+│   ├── env.py
+│   └── script.py.mako
+├── alembic.ini
+├── app
+│   ├── __init__.py
+│   ├── cli.py
+│   ├── database.py
+│   ├── db
+│   │   ├── models.py
+│   │   └── seed.py
+│   └── helpers.py
+|
+├── debug.py
+├── main.py
+└── run_cli.py
+
 ```
 
 ---
@@ -101,39 +69,6 @@ simplebilling/
 - SQLite (lightweight, file-based database)
 - Cmd module (interactive CLI shell)
 
----
-
-## 🧾 Sample Output
-
-```
-█████╗ ███╗   ██╗ ██████╗ 
-██╔══██╗████╗  ██║██╔═══██╗
-███████║██╔██╗ ██║██║   ██║
-██╔══██║██║╚██╗██║██║   ██║
-██║  ██║██║ ╚████║╚██████╔╝
-╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝ 
-Track it. Bill it. Bank it.
-
-Welcome to SimpleBilling CLI!
-Type '--help' to see available commands
-💡 Type 'cancel' or press Ctrl+C at any prompt to cancel a command.
-
-> add_client
-Client Name: Acme Inc.
-Client Email: contact@acme.com
-Hourly Rate: 75
-
-> log_hours
-Client ID: 1
-Hours Worked: 4.5
-
-> generate_invoice
-Client ID: 1
---- Invoice for Acme Inc. ---
-Total Hours: 4.5
-Hourly Rate: $75.0
-Total Due: $337.50
-```
 
 ---
 
@@ -190,7 +125,6 @@ python run_cli.py
 You’ll see a welcome banner and can immediately begin using the app.
 
 ---
-
 
 
 
