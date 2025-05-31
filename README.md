@@ -145,16 +145,54 @@ Total Due: $337.50
 - [ASCII Art Generator](https://patorjk.com/software/taag/)
 
 ---
+## 🛠️ Setup & Installation
 
-## 🧠 Future Features (Ideas)
+#### 1. **Clone the repo**
 
-- PDF export of invoices
-- Tag work sessions by project
-- Filter invoices by month
-- Email invoices directly from CLI
-- Optional web dashboard frontend (Flask?)
+```bash
+git clone https://github.com/your-username/simplebilling-cli.git
+cd simplebilling-cli
+```
+
+#### 2. **Create a virtual environment (recommended)**
+
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+```
+
+#### 3. **Install dependencies**
+
+```bash
+pip install -r requirements.txt
+```
+
+> 🧪 If you're developing or testing, you might want to install dev dependencies too:
+> 
+> ```bash
+> pip install -r dev-requirements.txt
+> ```
+
+#### 4. **Initialize the database**
+
+```bash
+alembic upgrade head
+```
+
+> This runs migrations and sets up the SQLite database schema.
+
+#### 5. **Run the CLI**
+
+```bash
+python run_cli.py
+```
+
+You’ll see a welcome banner and can immediately begin using the app.
 
 ---
+
+
+
 
 ## 👤 Author
 
