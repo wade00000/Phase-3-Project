@@ -3,7 +3,10 @@
 > _Track it. Bill it. Bank it._  
 A developer-focused time-tracking and invoicing tool, built entirely in Python and run via the command line. SimpleBilling allows you to log billable hours, manage clients, and generate invoices right from your terminal.
 
+- [Demonstration Video](https://drive.google.com/file/d/1yuU81UnBvqMkgoblpne2UiCFcuCsrqYE/view?usp=drive_link)
+
 ---
+
 
 ## 🚀 CLI Entry Point: `run_cli.py`
 
@@ -131,5 +134,7 @@ You’ll see a welcome banner and can immediately begin using the app.
 ## 👤 Author
 
 **Wade**  
+
+
 Full Stack Software Engineer in the making  
 Crafting tools that save time so you can make money 💸
