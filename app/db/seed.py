@@ -3,11 +3,11 @@
 
 from faker import Faker
 from decimal import Decimal
-from datetime import datetime, timedelta
+from datetime import  timedelta
 import random
 
 
-from models import Customer, Product, PaymentMethod, Invoice, InvoiceLine, Payment
+from app.db.models import Customer, Product, PaymentMethod, Invoice, InvoiceLine, Payment
 from database import Session
 
 session = Session()  

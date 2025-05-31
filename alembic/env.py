@@ -1,8 +1,8 @@
 from logging.config import fileConfig
-from app.models import Base  # Import your Base metadata
+from app.db.models import Base  # Import your Base metadata
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-from app.models import Customer, Invoice, Payment, PaymentMethod, Product, InvoiceLine
+from app.db.models import Customer, Invoice, Payment, PaymentMethod, Product, InvoiceLine
 
 from alembic import context
 

@@ -1,6 +1,5 @@
 # debug.py
-from app.database import Base
-import app.models  
+from app.database import Base 
 
 def print_tables():
     print("=== Tables registered in Base.metadata ===")
